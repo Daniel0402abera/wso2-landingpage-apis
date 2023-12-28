@@ -793,6 +793,37 @@ export interface ApiApiApi extends Schema.CollectionType {
   };
 }
 
+export interface ApiPartnerPartner extends Schema.CollectionType {
+  collectionName: 'partners';
+  info: {
+    singularName: 'partner';
+    pluralName: 'partners';
+    displayName: 'partner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    partner_name: Attribute.String & Attribute.Required;
+    img: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSliderSlider extends Schema.CollectionType {
   collectionName: 'sliders';
   info: {
@@ -826,6 +857,38 @@ export interface ApiSliderSlider extends Schema.CollectionType {
   };
 }
 
+export interface ApiUsageUsage extends Schema.CollectionType {
+  collectionName: 'usages';
+  info: {
+    singularName: 'usage';
+    pluralName: 'usages';
+    displayName: 'Usage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+    img: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::usage.usage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::usage.usage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -845,7 +908,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::api.api': ApiApiApi;
+      'api::partner.partner': ApiPartnerPartner;
       'api::slider.slider': ApiSliderSlider;
+      'api::usage.usage': ApiUsageUsage;
     }
   }
 }
