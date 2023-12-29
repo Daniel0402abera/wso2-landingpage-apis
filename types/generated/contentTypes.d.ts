@@ -781,7 +781,6 @@ export interface ApiApiApi extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
-    subtitle: Attribute.String;
     description: Attribute.Text & Attribute.Required;
     img: Attribute.Media & Attribute.Required;
     catagory: Attribute.Relation<
