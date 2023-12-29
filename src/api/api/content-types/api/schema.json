@@ -4,7 +4,8 @@
   "info": {
     "singularName": "api",
     "pluralName": "apis",
-    "displayName": "API"
+    "displayName": "API",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -23,15 +24,21 @@
       "required": true
     },
     "img": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": true
+      ]
+    },
+    "catagory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::catagory.catagory",
+      "inversedBy": "apis"
     }
   }
 }

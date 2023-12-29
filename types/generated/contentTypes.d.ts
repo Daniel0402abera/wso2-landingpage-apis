@@ -774,6 +774,7 @@ export interface ApiApiApi extends Schema.CollectionType {
     singularName: 'api';
     pluralName: 'apis';
     displayName: 'API';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -783,12 +784,53 @@ export interface ApiApiApi extends Schema.CollectionType {
     subtitle: Attribute.String;
     description: Attribute.Text & Attribute.Required;
     img: Attribute.Media & Attribute.Required;
+    catagory: Attribute.Relation<
+      'api::api.api',
+      'manyToOne',
+      'api::catagory.catagory'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::api.api', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::api.api', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCatagoryCatagory extends Schema.CollectionType {
+  collectionName: 'catagories';
+  info: {
+    singularName: 'catagory';
+    pluralName: 'catagories';
+    displayName: 'Catagory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    catagory: Attribute.String & Attribute.Required & Attribute.Unique;
+    apis: Attribute.Relation<
+      'api::catagory.catagory',
+      'oneToMany',
+      'api::api.api'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::catagory.catagory',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::catagory.catagory',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -908,6 +950,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::api.api': ApiApiApi;
+      'api::catagory.catagory': ApiCatagoryCatagory;
       'api::partner.partner': ApiPartnerPartner;
       'api::slider.slider': ApiSliderSlider;
       'api::usage.usage': ApiUsageUsage;
